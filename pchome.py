@@ -35,6 +35,7 @@ def scrapy(search_id):
 
             with webdriver.Chrome('./chromedriver') as driver:
                 # with webdriver.Chrome('chromedriver.exe') as driver:
+                print("搜尋:" + id)
                 driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
                 gifts = []
                 for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
