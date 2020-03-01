@@ -9,6 +9,10 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 
+from pchome import scrapy
+
+import re
+
 app = Flask(__name__)
 
 # Channel Access Token
@@ -35,8 +39,19 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
+    # message = TextSendMessage(text=re.match(
+    #     "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text))
+    machines = scrapy(re.match(
+        "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text))
+    prods = "搜尋到" + str(len(machines)) + "個結果:\n"
+    for machine in machines:
+        prods += machine
+        prods += "\n商品名稱:" + machines[machine]['name']
+        prods += "\n商品描述:" + machines[machine]['describe']
+        prods += "\n商品價格:" + str(machines[machine]['price'])
+        prods += "\n禮物項目" + machines[machine]['gift']
+    message = prods
+    line_bot_api.reply_message(event.reply_token, prods)
 
 
 if __name__ == "__main__":
