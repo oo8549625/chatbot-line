@@ -53,8 +53,7 @@ def handle_message(event):
         prods += "\n商品價格:" + str(machines[machine]['price'])
         prods += "\n禮物項目" + machines[machine]['gift']
     message = TextSendMessage(text=prods)
-    print(message)
-    line_bot_api.reply_message(event.reply_token, machines)
+    line_bot_api.reply_message(event.reply_token, message)
 
 
 if __name__ == "__main__":
