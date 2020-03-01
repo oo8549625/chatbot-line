@@ -1,5 +1,16 @@
 import requests
 from selenium import webdriver
+import os
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get(
+    "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+# Now you can start using Selenium
 
 
 def scrapy(search_id):
@@ -33,13 +44,11 @@ def scrapy(search_id):
             # 商品價格
             price = prod['price']
 
-            with webdriver.Chrome('chromedriver') as driver:
-                # with webdriver.Chrome('chromedriver.exe') as driver:
-                print("搜尋:" + id)
-                driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
-                gifts = []
-                for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
-                    gifts.append(data.text)
+            print("搜尋:" + id)
+            driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
+            gifts = []
+            for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
+                gifts.append(data.text)
 
             machine = {"name": name, "describe": describe,
                        "price": price, "gift": ",".join(gifts)}
