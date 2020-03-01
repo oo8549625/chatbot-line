@@ -39,10 +39,10 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    search_id = re.search(
+    search_id = re.findall(
         "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
-    print("搜尋的編號:" + search_id.string)
-    machines = scrapy(search_id.string)
+    print("搜尋的編號:" + search_id[0])
+    machines = scrapy(search_id[0])
     prods = "搜尋到" + str(len(machines)) + "個結果:\n"
     for machine in machines:
         prods += machine
