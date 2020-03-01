@@ -40,7 +40,8 @@ def scrapy(search_id):
             # 商品名稱
             name = prod['name']
             # 商品描述
-            describe = prod['describe']
+            describe = re.findall(
+                r"(?<=買就送|大爆送)[.\s\S\w\W\D\d ]*", prod['describe'])
             # 商品價格
             price = prod['price']
 
@@ -50,7 +51,7 @@ def scrapy(search_id):
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
                 gifts.append(data.text)
 
-            machine = {"name": name, "describe": describe,
+            machine = {"name": name, "describe": ",".join(describe),
                        "price": price, "gift": ",".join(gifts)}
             machines.update({id: machine})
             # print(machine)
