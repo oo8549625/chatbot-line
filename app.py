@@ -45,15 +45,16 @@ def handle_message(event):
         "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
     print("搜尋的編號:" + search_id.string)
     machines = scrapy(search_id.string)
-    prods = "搜尋到" + str(len(machines)) + "個結果:\n"
-    for machine in machines:
-        prods += machine
-        prods += "\n商品名稱:" + machines[machine]['name']
-        prods += "\n商品描述:" + machines[machine]['describe']
-        prods += "\n商品價格:" + str(machines[machine]['price'])
-        prods += "\n禮物項目" + machines[machine]['gift']
-    message = prods
-    line_bot_api.reply_message(event.reply_token, prods)
+    # prods = "搜尋到" + str(len(machines)) + "個結果:\n"
+    # for machine in machines:
+    #     prods += machine
+    #     prods += "\n商品名稱:" + machines[machine]['name']
+    #     prods += "\n商品描述:" + machines[machine]['describe']
+    #     prods += "\n商品價格:" + str(machines[machine]['price'])
+    #     prods += "\n禮物項目" + machines[machine]['gift']
+    # message = prods
+    # print(prods)
+    line_bot_api.reply_message(event.reply_token, machines)
 
 
 if __name__ == "__main__":
