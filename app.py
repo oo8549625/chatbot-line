@@ -41,10 +41,10 @@ def callback():
 def handle_message(event):
     # message = TextSendMessage(text=re.match(
     #     "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text))
-    print("搜尋的編號:" + re.match(
-        "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text))
-    machines = scrapy(re.match(
-        "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text))
+    search_id = re.match(
+        "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
+    print("搜尋的編號:" + search_id.string)
+    machines = scrapy(search_id.string)
     prods = "搜尋到" + str(len(machines)) + "個結果:\n"
     for machine in machines:
         prods += machine
