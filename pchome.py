@@ -33,7 +33,7 @@ def scrapy(search_id):
             # 商品價格
             price = prod['price']
 
-            with webdriver.Chrome('./chromedriver') as driver:
+            with webdriver.Chrome('chromedriver') as driver:
                 # with webdriver.Chrome('chromedriver.exe') as driver:
                 print("搜尋:" + id)
                 driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
