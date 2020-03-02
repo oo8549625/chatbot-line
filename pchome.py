@@ -52,6 +52,8 @@ def scrapy(search_id):
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
                 gifts.append(data.text)
 
+            print_gift = ",".join(gifts)
+            print("列印禮物連結:" + print_gift)
             machine = {"name": name, "describe": ",".join(describe),
                        "price": price, "gift": ",".join(gifts)}
             machines.update({id: machine})
