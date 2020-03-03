@@ -51,7 +51,6 @@ def scrapy(search_id):
             print("搜尋:" + id)
             driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
             print("網頁資源:" + driver.page_source)
-            driver.close()
             # try:
             #     element = WebDriverWait(driver, 10).until(
             #         EC.presence_of_element_located((By.CLASS, "giftlink")))
