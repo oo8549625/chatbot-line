@@ -1,5 +1,7 @@
 import requests
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 import re
@@ -47,12 +49,13 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
             driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
             print("網頁資源:" + driver.page_source)
-            # This is to tell Selenium wait for the search button
-            # WebDriverWait wait = new WebDriverWait(driver, 10)
-            # WebElement SearchText = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='q']")))
+            try:
+                element = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.CLASS, "giftlink")))
+            finally:
+                driver.quit()
 
             gifts = []
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
