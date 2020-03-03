@@ -41,19 +41,22 @@ def callback():
 def handle_message(event):
     search_id = re.findall(
         "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
-    print("搜尋的編號:" + search_id[0])
-    machines = scrapy(search_id[0])
-    prods = "搜尋到" + str(len(machines)) + "個結果:"
-    for machine in machines:
-        prods += "\n=====================我是分隔線====================="
-        prods += "\n商品代號:" + machine
-        prods += "\n商品名稱:" + machines[machine]['name']
-        prods += "\n商品描述:" + machines[machine]['describe']
-        prods += "\n商品價格:" + str(machines[machine]['price'])
-        prods += "\n禮物項目:" + machines[machine]['gift']
-        prods += "\n=====================我是分隔線====================="
-    message = TextSendMessage(text=prods)
-    line_bot_api.reply_message(event.reply_token, message)
+    try:
+        print("搜尋的編號:" + search_id[0])
+        machines = scrapy(search_id[0])
+        prods = "搜尋到" + str(len(machines)) + "個結果:"
+        for machine in machines:
+            prods += "\n=====================我是分隔線====================="
+            prods += "\n商品代號:" + machine
+            prods += "\n商品名稱:" + machines[machine]['name']
+            prods += "\n商品描述:" + machines[machine]['describe']
+            prods += "\n商品價格:" + str(machines[machine]['price'])
+            prods += "\n禮物項目:" + machines[machine]['gift']
+            prods += "\n=====================我是分隔線====================="
+        message = TextSendMessage(text=prods)
+        line_bot_api.reply_message(event.reply_token, message)
+    except:
+        line_bot_api.reply_message(event.reply_token, "我只找機型, 其他我不管")
 
 
 if __name__ == "__main__":
