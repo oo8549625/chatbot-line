@@ -8,8 +8,6 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get(
-    "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 # Now you can start using Selenium
 
@@ -47,11 +45,13 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
-            print("網頁資源:" + driver.page_source)
-            gifts = []
-            for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
-                gifts.append(data.text)
+            with webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) as driver:
+                driver.implicitly_wait(10)
+                driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
+                print("網頁資源:" + driver.page_source)
+                gifts = []
+                for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
+                    gifts.append(data.text)
 
             print_gift = ",".join(gifts)
             print("列印禮物連結:" + print_gift)
