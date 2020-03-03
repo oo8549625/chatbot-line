@@ -41,7 +41,7 @@ def callback():
 def handle_message(event):
     search_id = re.findall(
         "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
-    try:
+    if(search_id):
         print("搜尋的編號:" + search_id[0])
         machines = scrapy(search_id[0])
         prods = "搜尋到" + str(len(machines)) + "個結果:"
@@ -54,9 +54,6 @@ def handle_message(event):
             prods += "\n禮物項目:" + machines[machine]['gift']
             prods += "\n=====================我是分隔線====================="
         message = TextSendMessage(text=prods)
-        line_bot_api.reply_message(event.reply_token, message)
-    except:
-        message = TextSendMessage(text="我只找機型, 其他我不管")
         line_bot_api.reply_message(event.reply_token, message)
 
 
