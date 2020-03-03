@@ -56,7 +56,7 @@ def handle_message(event):
             prods += "\n商品價格:" + str(machines[machine]['price'])
             prods += "\n禮物項目:" + machines[machine]['gift']
             prods += "\n=====================我是分隔線====================="
-        yield message = TextSendMessage(text=prods)
+        message = TextSendMessage(text=prods)
         line_bot_api.reply_message(event.reply_token, message)
 
 
