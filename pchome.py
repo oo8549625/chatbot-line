@@ -58,7 +58,6 @@ def scrapy(search_id):
             gifts = []
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
                 gifts.append(data.text)
-            driver.close()
 
             print_gift = ",".join(gifts)
             print("列印禮物連結:" + print_gift)
