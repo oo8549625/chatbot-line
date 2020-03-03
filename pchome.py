@@ -1,8 +1,5 @@
 import requests
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import os
 import re
 
@@ -49,7 +46,8 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.get("https://mall.pchome.com.tw/prod/" + id)  # 前往這個網址
+            driver.get("https://mall.pchome.com.tw/prod/" + id)
+            # 前往這個網址
             print("網頁資源:" + driver.page_source)
             # try:
             #     element = WebDriverWait(driver, 10).until(
