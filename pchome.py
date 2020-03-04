@@ -56,10 +56,9 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.implicitly_wait(5)
+            driver.implicitly_wait(1)
             driver.get("https://mall.pchome.com.tw/prod/" + id)
-            # 前往這個網址
-            # print("網頁資源:" + driver.page_source)
+
             gifts = []
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
                 gifts.append(data.text)
