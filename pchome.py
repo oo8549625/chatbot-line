@@ -5,8 +5,18 @@ import re
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
+# UA
+chrome_options.add_argument(
+    'user-agent="MQQBrowser/26 Mozilla/5.0 (Linux; U; Android 2.3.7; zh-cn; MB200 Build/GRJ22; CyanogenMod-7) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1"')
+# 谷歌文档提到需要加上这个属性来规避bug
+chrome_options.add_argument('--disable-gpu')
+# 隐藏滚动条, 应对一些特殊页面
+chrome_options.add_argument('--hide-scrollbars')
+# 浏览器不提供可视化页面. linux下如果系统不支持可视化不加这条会启动失败
+chrome_options.add_argument("--headless")
+# 不加载图片, 提升速度
+chrome_options.add_argument('blink-settings=imagesEnabled=false')
+# 以最高权限运行
 chrome_options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get(
     "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
@@ -66,7 +76,7 @@ def scrapy(search_id):
             machines.update({id: machine})
             # print(machine)
 
-        driver.close()
+        driver.quit()
         return machines
 
     else:
