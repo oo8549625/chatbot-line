@@ -58,15 +58,16 @@ def scrapy(search_id):
             print("搜尋:" + id)
             driver.get("https://mall.pchome.com.tw/prod/" + id)
             # 前往這個網址
-
+            print("網頁資源:" + driver.page_source)
             gifts = []
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
+                print("擷取資料:" + data.text)
                 gifts.append(data.text)
 
-            print_gift = ",".join(gifts)
-            print("列印禮物連結:" + print_gift)
+            list_gift = ",".join(gifts)
+            print("列印禮物連結:" + list_gift)
             machine = {"name": name, "describe": ",".join(describe),
-                       "price": price, "gift": ",".join(gifts)}
+                       "price": price, "gift": list_gift}
             machines.update({id: machine})
             # print(machine)
 
