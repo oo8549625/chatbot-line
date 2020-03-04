@@ -1,4 +1,4 @@
 line-bot-sdk
 flask
 requests
-selenium==3.8.0
+selenium==3.141.0
