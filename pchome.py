@@ -56,7 +56,7 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(5)
             driver.get("https://mall.pchome.com.tw/prod/" + id)
             # 前往這個網址
             # print("網頁資源:" + driver.page_source)
@@ -71,7 +71,6 @@ def scrapy(search_id):
             machines.update({id: machine})
             # print(machine)
 
-        driver.close()
         return machines
 
     else:
