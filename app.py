@@ -16,10 +16,9 @@ import re
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi(
-    'HcDTvLuiqFzW3oG5AXN5uq9bH960sEEm7lILqQUVydR3j/95eOAuuhZLppht6fbZXVfcoipDrjLRn08oYHuDkMlxBVxc+CNzfGjzspLJr/oqV6sjP+OZhtgGLPxGe9gt23e1sBHAfHi7nir9td9kMQdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi(os.environ.get("LINE_BOT_TOKEN"))
 # Channel Secret
-handler = WebhookHandler('1e4eaba0b066667690bdbb650e0e3df5')
+handler = WebhookHandler(os.environ.get("LINE_BOT_SECRET"))
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -40,7 +39,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     search_id = re.findall(
-        "[a-zA-Z0-9]+-[a-zA-Z0-9]+", event.message.text)
+        "[a-zA-Z0-9]+-(([a-zA-Z0-9]+-[a-zA-Z0-9]+)|([a-zA-Z0-9]+))", event.message.text)
     if(search_id):
         print("搜尋的編號:" + search_id[0])
         machines = scrapy(search_id[0])

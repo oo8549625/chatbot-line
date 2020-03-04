@@ -8,15 +8,15 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # UA
 chrome_options.add_argument(
     'user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"')
-# 谷歌文档提到需要加上这个属性来规避bug
+# 關閉GPU
 chrome_options.add_argument('--disable-gpu')
-# 隐藏滚动条, 应对一些特殊页面
+# 隱藏滾動條
 chrome_options.add_argument('--hide-scrollbars')
-# 浏览器不提供可视化页面. linux下如果系统不支持可视化不加这条会启动失败
+# 無頭
 chrome_options.add_argument("--headless")
-# 不加载图片, 提升速度
+# 不加載圖片
 # chrome_options.add_argument('blink-settings=imagesEnabled=false')
-# 以最高权限运行
+# 最高權限運行
 chrome_options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(executable_path=os.environ.get(
     "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
@@ -58,12 +58,6 @@ def scrapy(search_id):
             print("搜尋:" + id)
             driver.get("https://mall.pchome.com.tw/prod/" + id)
             # 前往這個網址
-            print("網頁資源:" + driver.page_source)
-            # try:
-            #     element = WebDriverWait(driver, 10).until(
-            #         EC.presence_of_element_located((By.CLASS, "giftlink")))
-            # finally:
-            #     driver.quit()
 
             gifts = []
             for data in driver.find_elements_by_css_selector("a[class='giftlink']"):
