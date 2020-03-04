@@ -70,7 +70,6 @@ def scrapy(search_id):
             machines.update({id: machine})
             # print(machine)
 
-        driver.quit()
         return machines
 
     else:
