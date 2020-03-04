@@ -40,8 +40,8 @@ def callback():
 def handle_message(event):
     search_id = re.findall(
         "[a-zA-Z0-9]+-(([a-zA-Z0-9]+-[a-zA-Z0-9]+)|([a-zA-Z0-9]+))", event.message.text)
-    if(search_id):
-        print("搜尋的編號:" + search_id[0])
+    if(search_id[0]):
+        print("搜尋的編號:" + str(search_id[0]))
         machines = scrapy(search_id[0])
         if(machines == -1):
             line_bot_api.reply_message(
