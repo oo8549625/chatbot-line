@@ -38,11 +38,12 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    search_id = re.findall(
-        "[a-zA-Z0-9]+-(([a-zA-Z0-9]+-[a-zA-Z0-9]+)|([a-zA-Z0-9]+))", event.message.text)
-    if(search_id[0]):
-        print("搜尋的編號:" + str(search_id[0]))
-        machines = scrapy(search_id[0])
+    search_id = re.match(
+        r"\w+(-\w+)+", event.message.text)
+
+    if(search_id):
+        print("搜尋的編號:" + str(search_id.group()))
+        machines = scrapy(search_id.group())
         if(machines == -1):
             line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text="請求失敗"))
