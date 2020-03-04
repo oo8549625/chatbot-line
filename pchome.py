@@ -25,7 +25,7 @@ driver = webdriver.Chrome(executable_path=os.environ.get(
 
 def scrapy(search_id):
     # search_id = "FX505DD-0051B3750H"
-    # " X571GT-0241K9300H"
+    # "X571GT-0241K9300H"
     page = "1"
     sort = "sale/dc"
     pchome_params = {'q': search_id, 'page': page, 'sort': sort}
@@ -56,7 +56,7 @@ def scrapy(search_id):
             price = prod['price']
 
             print("搜尋:" + id)
-            driver.implicitly_wait(1)
+            driver.implicitly_wait(0.5)
             driver.get("https://mall.pchome.com.tw/prod/" + id)
 
             gifts = []
