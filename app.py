@@ -49,12 +49,11 @@ def handle_message(event):
                 event.reply_token, TextSendMessage(text="請求失敗"))
         prods = "搜尋到" + str(len(machines)) + "個結果:"
         for machine in machines:
-            prods += "\n=====================我是分隔線====================="
-            prods += "\n商品代號:" + machine
-            prods += "\n商品名稱:" + machines[machine]['name']
-            prods += "\n商品描述:" + machines[machine]['describe']
-            prods += "\n商品價格:" + str(machines[machine]['price'])
-            prods += "\n禮物項目:" + machines[machine]['gift']
+            prods += "\n代號:" + machine
+            prods += "\n名稱:" + machines[machine]['name']
+            prods += "\n描述:" + machines[machine]['describe']
+            prods += "\n價格:" + str(machines[machine]['price'])
+            prods += "\n禮物:" + machines[machine]['gift']
             prods += "\n=====================我是分隔線====================="
         message = TextSendMessage(text=prods)
         line_bot_api.reply_message(event.reply_token, message)
